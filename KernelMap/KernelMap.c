@@ -22,8 +22,7 @@ INT32 Main() {
 	}
 
 	PrintF("Welcome to KernelBox's KernelMap!\n");
-	PrintF("Give it a star, will ya? github.com/vlltx/KernelBox\n");
-	PrintF("Donate for my Mercedes, will ya?\n\n");
+	PrintF("Give it a star, will ya? github.com/vlltx/KernelMap\n");
 
 	INT32 argCount = 0;
 	LPWSTR* commandLine = CommandLineToArgvW(GetCommandLineW(), &argCount);
@@ -318,4 +317,5 @@ execution:
 	PrintF("Thread began execution with id %d!\n", threadId);
 
 	return 0;
+
 }

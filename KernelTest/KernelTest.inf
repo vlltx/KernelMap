@@ -1,0 +1,62 @@
+;
+; KernelTest.inf
+;
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = System ; TODO: specify appropriate Class
+ClassGuid   = {4d36e97d-e325-11ce-bfc1-08002be10318} ; TODO: specify appropriate ClassGuid
+Provider    = %ManufacturerName%
+CatalogFile = KernelTest.cat
+DriverVer   = ; TODO: set DriverVer in stampinf property pages
+PnpLockdown = 1
+
+[DestinationDirs]
+DefaultDestDir = 13
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+KernelTest.sys = 1,,
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName% = Standard,NT$ARCH$.10.0...16299 ; %13% support introduced in build 16299
+
+[Standard.NT$ARCH$.10.0...16299]
+%KernelTest.DeviceDesc% = KernelTest_Device, Root\KernelTest ; TODO: edit hw-id
+
+[KernelTest_Device.NT]
+CopyFiles = File_Copy
+
+[File_Copy]
+KernelTest.sys
+
+;-------------- Service installation
+[KernelTest_Device.NT.Services]
+AddService = KernelTest,%SPSVCINST_ASSOCSERVICE%, KernelTest_Service_Inst
+
+; -------------- KernelTest driver install sections
+[KernelTest_Service_Inst]
+DisplayName    = %KernelTest.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %13%\KernelTest.sys
+
+[KernelTest_Device.NT.Wdf]
+KmdfService = KernelTest, KernelTest_wdfsect
+
+[KernelTest_wdfsect]
+KmdfLibraryVersion = $KMDFVERSION$
+
+[Strings]
+SPSVCINST_ASSOCSERVICE = 0x00000002
+ManufacturerName = "<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+DiskName = "KernelTest Installation Disk"
+KernelTest.DeviceDesc = "KernelTest Device"
+KernelTest.SVCDESC = "KernelTest Service"

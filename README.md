@@ -12,6 +12,12 @@ Map and execute kernel drivers in usermode.
 - Extensible and easy hook for any other imported method (using IAT hooking)
 - Supports and works only on x86_64.
 
+### KernelTest
+Test driver made to test the functionality.
+
+### KernelMap
+Maps the driver you ask.
+
 ## Why?
 Because there is no simple and extensible way to test drivers, and you have to restart your computer everytime you get a MEMORY_MANAGEMENT.
 Even though the main purpose of KernelMap is to learn and have fun, I believe it adds much more than that.

@@ -12,7 +12,7 @@ PVOID* FunctionTable;
 
 PVOID KmMmGetSystemRoutineAddress(PUNICODE_STRING RoutineName) {
 	// No idea why %wZ doesn't work.
-	PVOID function = FunctionTable[MM_GET_SYSTEM_ROUTINE_ADDRESS];
+	PVOID function = ((MmGetSystemRoutineAddressType)FunctionTable[MM_GET_SYSTEM_ROUTINE_ADDRESS])(RoutineName);
 
 	if (RoutineName->Length >= 1024) goto end;
 
@@ -40,4 +40,5 @@ NTSTATUS KmPsGetVersion(PULONG MajorVersion, PULONG MinorVersion, PULONG BuildNu
 	if (BuildNumber) *BuildNumber = 10;
 
 	return 0;
+
 }
